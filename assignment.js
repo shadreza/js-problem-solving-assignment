@@ -4,8 +4,7 @@
 
 
 function kilometerToMeter(inputKilometer){
-    // As distance must be non negative so if distance < 0 then that is one corner case to handle
-    if(inputKilometer<0){
+    if(inputKilometer<0){   // As distance must be non negative so if distance < 0 then that is one corner case to handle
         return "Distance Can not be Negative!";
     }
     // As non negative input the output will be multiplied by 1000 as 1 Kilometer = 1000 meter
@@ -16,8 +15,7 @@ function kilometerToMeter(inputKilometer){
 
 
 function budgetCalculator(numberOfWatches,numberOfPhones,numberOfLaptops){
-    // The Total Budget is denoted as totalCost and initialized as 0 as nothing is bought
-    var totalCost=0;
+    var totalCost=0;    // The Total Budget is denoted as totalCost and initialized as 0 as nothing is bought
     if(numberOfWatches<0){
         // As number of bought products can not be negative thats a catch
         console.log("Number Of Watches Can not be negative!");
@@ -45,7 +43,7 @@ function budgetCalculator(numberOfWatches,numberOfPhones,numberOfLaptops){
         // Price of the laptops are 500 unit
         totalCost+=(numberOfLaptops*500);
     }
-    if(totalCost<0){
+    if(numberOfLaptops<0 && numberOfPhones<0 && numberOfWatches<0){
         // If all the inputs are negative then there will be no bugget
         return "As The Given Inputs are all negative so no Budget needed!";
     }
@@ -59,44 +57,26 @@ function budgetCalculator(numberOfWatches,numberOfPhones,numberOfLaptops){
 
 
 function hotelCost(inputDays){
-    // Initializing the total bill as totalCost as totalHotelCost as 0
-    var totalHotelCost=0;
-    // If the input days are more than 0 then we will have to make the bill
-    if(inputDays>=0){
-        if(inputDays>10){
-            // If the input days are more than 10 days then for the first 10 days 100 taka and the remaining days are now in inputDays
-            totalHotelCost+=10*100;
-            inputDays-=10;
-        }
-        else{
-            // If the input days are not more than 10 days then for the first 10 days 100 taka and the remaining days are now 0
-            totalHotelCost+=inputDays*100;
-            inputDays-=inputDays;
-        }
+    if(inputDays<0){
+        // If input days are negative then that is an invalid input
+        return "Invalid input days";
     }
-    // If the input days are negative then the input is not valid
+    else if(inputDays==0){
+        // No bill for 0 days of staying
+        return 0;
+    }
+    else if(inputDays<=10){
+        // Upto First 10 days for 100  money unit
+        return (inputDays*100);
+    }
+    else if(inputDays<=20){
+        // Upto First 10 days 100 , Upto Second 10 days 80 money unit
+        return ((10*100)+((inputDays-10)*80));
+    }
     else{
-        return "No Bill Because the input is not valid!";
+        // Upto First 10 days 100 , Upto Second 10 days 80 and after that 50 money unit 
+        return ((10*100)+(10*80)+((inputDays-20)*50));
     }
-    // If more days are there to be stayed (mnore than 10 days ie. input was 15 or 25 or 100)
-    if(inputDays>0){
-        if(inputDays>10){
-            // For the second 10 days the cost is 80 and if there are more then 10 days remaining then inputDays are now renewed
-            totalHotelCost+=10*80;
-            inputDays-=10;
-        }
-        else{
-            // The remaining days will get their bill added as 80 per day
-            totalHotelCost+=inputDays*80;
-            inputDays-=inputDays;
-        }
-    }
-    if(inputDays>0){
-        // For the last remaining days (more than 20 days the bill will be 50 per day)
-        totalHotelCost+=inputDays*50;
-    }
-    // returning the total bill
-    return totalHotelCost;
 }
 
 
@@ -104,7 +84,7 @@ function hotelCost(inputDays){
 
 function megaFriend(friendArray){
     if(typeof friendArray!="undefined" && friendArray!=null && friendArray.length>0){
-        // If The array is nonempty then in this loop
+        // If The array is nonempty then in this if case
         if(friendArray.length==1){
             // If the array has only one element then that element will be the largest string
             return friendArray[0];
